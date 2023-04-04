@@ -4,6 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageDescription>Common libraries used in HarvestHelper</PackageDescription>
+    <Authors>Duarte Somsen</Authors>
+    <Company>Harvest Helper</Company>
   </PropertyGroup>
 
   <ItemGroup>
