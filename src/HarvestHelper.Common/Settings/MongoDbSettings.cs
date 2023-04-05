@@ -8,10 +8,10 @@ namespace HarvestHelper.Common.Settings
 
         public int Port { get; init; }
 
-        // public string ConnectionString => $"mongodb://{Host}:{Port}";
         public string ConnectionString
         {
-            get { return string.IsNullOrWhiteSpace(connectionString) ? $"mongodb://{Host}:{Port}" : connectionString;}
+            get { return string.IsNullOrWhiteSpace(connectionString) 
+                    ? $"mongodb://{Host}:{Port}" : connectionString; }
             init { connectionString = value; }
         }
         
