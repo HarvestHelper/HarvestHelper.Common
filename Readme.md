@@ -4,7 +4,7 @@ Common libraries used in HarvestHelper
 
 ## How to create and publish my package
 ```powershell
-$version="1.0.9"
+$version="1.0.10"
 $owner="HarvestHelper" 
 $gh_pat="[PAT HERE]"
 

@@ -14,13 +14,13 @@ namespace HarvestHelper.Common.MassTransit
     public static class Extensions
     {
 
-        private const string RabbitMQ = "RABBITMQ";
+         private const string RabbitMq = "RABBITMQ";
         private const string ServiceBus = "SERVICEBUS";
 
         public static IServiceCollection AddMassTransitWithMessageBroker(
             this IServiceCollection services,
             IConfiguration config,
-            Action<IRetryConfigurator>? configureRetries = null)
+            Action<IRetryConfigurator> configureRetries = null)
         {
             var serviceSettings = config.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
 
@@ -29,23 +29,23 @@ namespace HarvestHelper.Common.MassTransit
                 case ServiceBus:
                     services.AddMassTransitWithServiceBus(configureRetries);
                     break;
-                case RabbitMQ:
+                case RabbitMq:
                 default:
                     services.AddMassTransitWithRabbitMq(configureRetries);
-                    break;
-                
+                    break;                
             }
 
             return services;
         }
 
-
-        public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Action<IRetryConfigurator>? configureRetries = null)
+        public static IServiceCollection AddMassTransitWithRabbitMq(
+            this IServiceCollection services,
+            Action<IRetryConfigurator> configureRetries = null)
         {
             services.AddMassTransit(configure =>
             {
                 configure.AddConsumers(Assembly.GetEntryAssembly());
-                configure.UsingHarvestHelperRabbitMQ(configureRetries);
+                configure.UsinHarvestHelperRabbitMq(configureRetries);
             });
 
             services.AddMassTransitHostedService();
@@ -53,7 +53,9 @@ namespace HarvestHelper.Common.MassTransit
             return services;
         }
 
-        public static IServiceCollection AddMassTransitWithServiceBus(this IServiceCollection services, Action<IRetryConfigurator>? configureRetries = null)
+        public static IServiceCollection AddMassTransitWithServiceBus(
+            this IServiceCollection services,
+            Action<IRetryConfigurator> configureRetries = null)
         {
             services.AddMassTransit(configure =>
             {
@@ -64,9 +66,12 @@ namespace HarvestHelper.Common.MassTransit
             services.AddMassTransitHostedService();
 
             return services;
-        }
+        }        
 
-        public static void UsingHarvestHelperMessageBroker(this IServiceCollectionBusConfigurator configure,IConfiguration config, Action<IRetryConfigurator>? configureRetries = null)
+        public static void UsingHarvestHelperMessageBroker(
+            this IServiceCollectionBusConfigurator configure,
+            IConfiguration config,
+            Action<IRetryConfigurator> configureRetries = null)
         {
             var serviceSettings = config.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
 
@@ -75,16 +80,16 @@ namespace HarvestHelper.Common.MassTransit
                 case ServiceBus:
                     configure.UsingHarvestHelperAzureServiceBus(configureRetries);
                     break;
-                case RabbitMQ:
+                case RabbitMq:
                 default:
-                    configure.UsingHarvestHelperRabbitMQ(configureRetries);
-                    break;
-                
+                    configure.UsinHarvestHelperRabbitMq(configureRetries);
+                    break;                
             }
         }
 
-
-        public static void UsingHarvestHelperRabbitMQ(this IServiceCollectionBusConfigurator configure, Action<IRetryConfigurator>? configureRetries = null)
+        public static void UsinHarvestHelperRabbitMq(
+            this IServiceCollectionBusConfigurator configure,
+            Action<IRetryConfigurator> configureRetries = null)
         {
             configure.UsingRabbitMq((context, configurator) =>
             {
@@ -103,7 +108,9 @@ namespace HarvestHelper.Common.MassTransit
             });
         }
 
-        public static void UsingHarvestHelperAzureServiceBus(this IServiceCollectionBusConfigurator configure, Action<IRetryConfigurator>? configureRetries = null)
+        public static void UsingHarvestHelperAzureServiceBus(
+            this IServiceCollectionBusConfigurator configure,
+            Action<IRetryConfigurator> configureRetries = null)
         {
             configure.UsingAzureServiceBus((context, configurator) =>
             {
@@ -120,6 +127,6 @@ namespace HarvestHelper.Common.MassTransit
 
                 configurator.UseMessageRetry(configureRetries);
             });
-        }
+        } 
     }
 }
