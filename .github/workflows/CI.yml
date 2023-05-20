@@ -42,10 +42,10 @@ jobs:
 
       - name: Pack
         run: |
-          dotnet pack src/harvesthelper.Common/ \
+          dotnet pack src/HarvestHelper.Common/ \
           --configuration Release \
           -p:PackageVersion=${{ needs.generate-version.outputs.new_version }} \
-          -p:RepositoryUrl=https://github.com/${{github.repository_owner}}/harvesthelper.common \
+          -p:RepositoryUrl=https://github.com/${{github.repository_owner}}/HarvestHelper.common \
           -o packages
 
       - name: Publish
