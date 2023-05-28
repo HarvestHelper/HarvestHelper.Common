@@ -94,5 +94,8 @@ jobs:
         run: |
         
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"HarvestHelper_HarvestHelper.Common" /o:"harvesthelper" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          cd .\src\HarvestHelper.Common
           dotnet build
+          cd ..
+          cd ..
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
